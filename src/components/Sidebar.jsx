@@ -15,17 +15,20 @@ const menuItems = [
 function Sidebar() {
   const { theme, mode, setMode } = useContext(ThemeContext)
   const location = useLocation()
+  const isDark = mode === 'dark'
 
   return (
     <div style={{
       width: '260px',
-      backgroundColor: theme.surface,
+      // Forces absolute pure black background when dark mode is active
+      backgroundColor: isDark ? '#000000' : theme.surface,
       borderRight: `1px solid ${theme.border}`,
       display: 'flex',
       flexDirection: 'column',
       padding: '20px',
       fontFamily: '"Times New Roman", Times, serif',
-      transition: 'background-color 0.15s ease, border-color 0.15s ease'
+      transition: 'background-color 0.15s ease, border-color 0.15s ease',
+      minHeight: '100vh'
     }}>
       
       <div style={{ marginBottom: '24px', paddingBottom: '16px', borderBottom: `1px solid ${theme.border}` }}>
@@ -51,8 +54,9 @@ function Sidebar() {
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: active ? 'bold' : 'normal',
-                color: active ? '#ffffff' : theme.text,
-                backgroundColor: active ? (theme.accent || '#bddd0d') : 'transparent',
+                // Ensures perfect high-contrast link colors against pure black layout
+                color: active ? '#ffffff' : (isDark ? '#e5e5e5' : theme.text),
+                backgroundColor: active ? (theme.accent || '#4ea940') : 'transparent',
                 transition: 'all 0.1s ease'
               }}
             >
@@ -71,7 +75,7 @@ function Sidebar() {
             padding: '12px',
             borderRadius: '4px',
             border: `1px solid ${theme.border}`,
-            backgroundColor: theme.bg,
+            backgroundColor: isDark ? '#000000' : theme.bg,
             color: theme.text,
             cursor: 'pointer',
             fontSize: '13px',

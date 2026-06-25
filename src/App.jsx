@@ -16,14 +16,14 @@ function App() {
 
   const themes = {
     dark: {
-      bg: '#090d16',
-      surface: '#111622',
-      border: '#242b3d',
-      text: '#ffffff',
-      textMuted: '#8492a6',
-      accent: '#f59e0b',
-      gridLine: '#1f242e',
-      cardBg: '#111622'
+      bg: '#000000',       
+      surface: '#000000',  
+      cardBg: '#000000',   
+      border: '#222222',  
+      text: '#ffffff',     // Clear white
+      textMuted: '#a3a3a3',
+      accent: '#f59e0b',   
+      gridLine: '#222222'
     },
     light: {
       bg: '#ffffff',
@@ -51,7 +51,13 @@ function App() {
           transition: 'background-color 0.15s ease, color 0.15s ease'
         }}>
           <Sidebar />
-          <main style={{ flex: 1, padding: '24px', width: '100%', overflowX: 'hidden' }}>
+          <main style={{ 
+            flex: 1, 
+            padding: '24px', 
+            width: '100%', 
+            overflowX: 'hidden',
+            backgroundColor: currentTheme.bg // Forces main viewport to lock to pure black
+          }}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/verifications" element={<Verifications />} />
