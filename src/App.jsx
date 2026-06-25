@@ -16,17 +16,17 @@ function App() {
 
   const themes = {
     dark: {
-      bg: '#000000',       
+      bg: 'transparent',    // Changed to transparent so the background image shows through!
       surface: '#000000',  
       cardBg: '#000000',   
       border: '#222222',  
-      text: '#ffffff',     // Clear white
+      text: '#ffffff',     
       textMuted: '#a3a3a3',
       accent: '#f59e0b',   
       gridLine: '#222222'
     },
     light: {
-      bg: '#ffffff',
+      bg: 'transparent',    // Changed to transparent so the background image shows through!
       surface: '#f8fafc',
       border: '#cbd5e1',
       text: '#0f172a',
@@ -38,36 +38,59 @@ function App() {
   }
 
   const currentTheme = themes[mode]
+  const backgroundImageURL = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920"
 
   return (
     <ThemeContext.Provider value={{ theme: currentTheme, mode, setMode }}>
       <BrowserRouter>
+        {/* Main Wrapper with Background Image */}
         <div style={{ 
           display: 'flex', 
           minHeight: '100vh', 
-          backgroundColor: currentTheme.bg,
-          color: currentTheme.text,
+          backgroundImage: `url(${backgroundImageURL})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          position: 'relative',
           fontFamily: '"Times New Roman", Times, serif',
-          transition: 'background-color 0.15s ease, color 0.15s ease'
+          transition: 'all 0.15s ease'
         }}>
-          <Sidebar />
-          <main style={{ 
-            flex: 1, 
-            padding: '24px', 
-            width: '100%', 
-            overflowX: 'hidden',
-            backgroundColor: currentTheme.bg // Forces main viewport to lock to pure black
-          }}>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/verifications" element={<Verifications />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/imported" element={<ImportedGoods />} />
-              <Route path="/delivery" element={<DeliveryDispatch />} />
-              <Route path="/inventory" element={<StockLedger />} />
-              <Route path="/credit" element={<CreditPipeline />} />
-            </Routes>
-          </main>
+          
+          {/* Smart Blend Overlay: Dims the image dynamically based on mode */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            // Uses 0.94 opacity so the background texture is highly subtle and doesn't conflict with text readability
+            backgroundColor: mode === 'dark' ? 'rgba(0, 0, 0, 0.94)' : 'rgba(255, 255, 255, 0.96)',
+            zIndex: 1,
+            pointerEvents: 'none', 
+            transition: 'background-color 0.15s ease'
+          }} />
+
+          {/* Content Container (Elevated above the overlay using zIndex) */}
+          <div style={{ display: 'flex', width: '100%', zIndex: 2 }}>
+            <Sidebar />
+            <main style={{ 
+              flex: 1, 
+              padding: '24px', 
+              width: '100%', 
+              overflowX: 'hidden'
+            }}>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/verifications" element={<Verifications />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/imported" element={<ImportedGoods />} />
+                <Route path="/delivery" element={<DeliveryDispatch />} />
+                <Route path="/inventory" element={<StockLedger />} />
+                <Route path="/credit" element={<CreditPipeline />} />
+              </Routes>
+            </main>
+          </div>
+
         </div>
       </BrowserRouter>
     </ThemeContext.Provider>
