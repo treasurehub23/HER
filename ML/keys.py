@@ -1,1 +1,1 @@
-GROQ_API_KEY="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"
+# keys are stored in environment variables

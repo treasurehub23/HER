@@ -3,10 +3,9 @@ import json
 from groq import Groq
 
 app = Flask(__name__)
-from keys import GROQ_API_KEY
-api_key = GROQ_API_KEY
-client = Groq(api_key=api_key)  
-
+import os
+api_key = os.environ.get("GROQ_API_KEY")
+client = Groq(api_key=api_key)
 def parse_sale(message):
     prompt = f"""You are a bookkeeping assistant for Nigerian market traders.
 Extract sales information from this message. The trader may write in English or Pidgin.
