@@ -3,13 +3,10 @@ import { useContext } from 'react'
 import { ThemeContext } from '../App'
 
 const menuItems = [
-  { path: '/', label: 'Overview Dashboard', icon: '📊' },
-  { path: '/verifications', label: 'Payment Status Check', icon: '🚨' },
-  { path: '/transactions', label: 'Sales Ledger Feed', icon: '📝' },
-  { path: '/imported', label: 'Imported Goods Tracker', icon: '🚢' },
-  { path: '/delivery', label: 'Delivery Dispatch Log', icon: '🚚' },
-  { path: '/inventory', label: 'Stock Levels & Ledger', icon: '🗄️' },
-  { path: '/credit', label: 'Credit Score Pipeline', icon: '🏦' }
+  { path: '/', label: 'Dashboard', icon: '📊' },
+  { path: '/alerts', label: 'Payment Verifications', icon: '🚨' },
+  { path: '/transactions', label: 'Sales Ledger', icon: '📝' },
+  { path: '/inventory', label: 'Inventory', icon: '🗄️' }
 ]
 
 function Sidebar() {
@@ -19,26 +16,41 @@ function Sidebar() {
 
   return (
     <div style={{
-      width: '260px',
-      // Forces absolute pure black background when dark mode is active
-      backgroundColor: isDark ? '#000000' : theme.surface,
+      width: '240px',
+      minWidth: '240px',
+      backgroundColor: isDark ? '#0d0d0d' : '#ffffff',
       borderRight: `1px solid ${theme.border}`,
       display: 'flex',
       flexDirection: 'column',
-      padding: '20px',
-      fontFamily: '"Times New Roman", Times, serif',
-      transition: 'background-color 0.15s ease, border-color 0.15s ease',
+      padding: '24px 16px',
+      fontFamily: '"Inter", "DM Sans", system-ui, sans-serif',
       minHeight: '100vh'
     }}>
-      
-      <div style={{ marginBottom: '24px', paddingBottom: '16px', borderBottom: `1px solid ${theme.border}` }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: theme.text, margin: 0, letterSpacing: '0.5px' }}>
-          LUMIRA
-        </h2>
-        <span style={{ fontSize: '12px', color: theme.textMuted, fontStyle: 'italic' }}>WhatsApp Ledger Engine</span>
+
+      {/* Logo */}
+      <div style={{ marginBottom: '32px', paddingBottom: '20px', borderBottom: `1px solid ${theme.border}` }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+          <div style={{
+            width: '32px',
+            height: '32px',
+            backgroundColor: '#f59e0b',
+            borderRadius: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: '#000'
+          }}>L</div>
+          <h2 style={{ fontSize: '18px', fontWeight: '800', color: theme.text, margin: 0, letterSpacing: '-0.3px' }}>
+            Lumira
+          </h2>
+        </div>
+        <span style={{ fontSize: '11px', color: theme.textMuted, marginLeft: '42px' }}>WhatsApp Business OS</span>
       </div>
 
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      {/* Nav */}
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
         {menuItems.map((item) => {
           const active = location.pathname === item.path
           return (
@@ -48,43 +60,46 @@ function Sidebar() {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                padding: '12px 14px',
-                borderRadius: '4px',
+                gap: '10px',
+                padding: '10px 12px',
+                borderRadius: '8px',
                 textDecoration: 'none',
                 fontSize: '14px',
-                fontWeight: active ? 'bold' : 'normal',
-                // Ensures perfect high-contrast link colors against pure black layout
-                color: active ? '#ffffff' : (isDark ? '#e5e5e5' : theme.text),
-                backgroundColor: active ? (theme.accent || '#4ea940') : 'transparent',
+                fontWeight: active ? '600' : '400',
+                color: active ? '#ffffff' : theme.textMuted,
+                backgroundColor: active ? '#f59e0b' : 'transparent',
                 transition: 'all 0.1s ease'
               }}
             >
-              <span style={{ fontSize: '16px' }}>{item.icon}</span>
+              <span style={{ fontSize: '15px' }}>{item.icon}</span>
               <span>{item.label}</span>
             </Link>
           )
         })}
       </nav>
 
-      <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
-        <button 
+      {/* Theme toggle */}
+      <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: `1px solid ${theme.border}` }}>
+        <button
           onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
           style={{
             width: '100%',
-            padding: '12px',
-            borderRadius: '4px',
+            padding: '10px',
+            borderRadius: '8px',
             border: `1px solid ${theme.border}`,
-            backgroundColor: isDark ? '#000000' : theme.bg,
-            color: theme.text,
+            backgroundColor: 'transparent',
+            color: theme.textMuted,
             cursor: 'pointer',
             fontSize: '13px',
-            fontWeight: 'bold',
-            fontFamily: '"Times New Roman", Times, serif',
-            textTransform: 'uppercase'
+            fontWeight: '500',
+            fontFamily: '"Inter", system-ui, sans-serif',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px'
           }}
         >
-          {mode === 'dark' ? '☀️ Activate Light Mode' : '🌙 Activate Dark Mode'}
+          {mode === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
         </button>
       </div>
     </div>

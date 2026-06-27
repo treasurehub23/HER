@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
 
 * {
   margin: 0;
@@ -7,22 +7,14 @@
 }
 
 body {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
-  /* Eliminates floating smooth scroll effects that feel fake */
-  scroll-behavior: auto; 
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Sharp grid container matching raw desktop layouts */
-.human-dense-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 12px; /* Tight margins */
-}
-
-/* Hard outline styling to overwrite round corners */
 .sharp-card {
-  border-radius: 4px !important;
+  border-radius: 12px !important;
   padding: 16px !important;
   margin: 0 !important;
 }
